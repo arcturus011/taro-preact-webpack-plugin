@@ -73,7 +73,6 @@ options._render = options.__r /*_render*/ = _wrap(
     fn && fn(vnode)
     Current.current = vnode
     Current.index = 0
-    // const hooks = Current.current.__hooks;
   }
 )
 

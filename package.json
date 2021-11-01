@@ -9,8 +9,10 @@
   "author": "381582176@qq.com",
   "license": "ISC",
   "dependencies": {
-    "lodash.wrap": "^4.1.1",
+    "lodash.wrap": "^4.1.1"
+  },
+  "peerDependencies": {
     "preact": "^10.5.15",
     "prop-types": "^15.7.2"
-}
+  }
 }
