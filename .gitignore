@@ -1,0 +1,17 @@
+node_modules/
+
+.DS_Store
+/.idea
+
+lerna-debug.log
+package-error.json
+yarn-error.log
+_book
+
+.idea
+.jscpd
+.eslintcache
+
+.vscode/*
+
+yarn.lock
