@@ -9,6 +9,13 @@ const Current = {
   index: 0
 }
 
+preact.Component.prototype.setState = _wrap(preact.Component.prototype.setState, function (fn, state, cb) {
+  if (!this.__v) {
+    Promise.resolve().then(cb)
+  }
+  return fn.call(this, state, cb)
+})
+
 function nextTick(fn) {
   setTimeout(fn)
 }
@@ -91,6 +98,19 @@ options.diffed = _wrap(options.diffed, (fn, vnode) => {
 
 options.vnode = _wrap(options.vnode, (fn, vnode) => {
   fn && fn(vnode)
+  
+  Object.defineProperty(vnode, 'name', {
+    get() {
+      return vnode.type.name
+    }
+  })
+  
+  Object.defineProperty(vnode, 'dom', {
+    get() {
+      return vnode.__e
+    }
+  })
+  
   if (vnode.key) {
     vnode.props.key = vnode.key
   }
