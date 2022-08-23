@@ -66,34 +66,37 @@ Object.defineProperty(compat, 'getHooks', {
   value: getHooks
 })
 
-options._diff = options.__b /*_diff*/ = _wrap(
-  options._diff || options.__b,
-  (fn, vnode) => {
-    fn && fn(vnode)
-    Current.current = null
-  }
-)
+// options._diff = options.__b /*_diff*/ = _wrap(
+//   options._diff || options.__b,
+//   (fn, vnode) => {
+//     Current.current = vnode.__c
+//     fn && fn(vnode)
+//     Current.current = null
+//   }
+// )
 
 options._render = options.__r /*_render*/ = _wrap(
   options._render || options.__r,
   (fn, vnode) => {
-    fn && fn(vnode)
-    Current.current = vnode
+    Current.current = vnode.__c
     Current.index = 0
+    fn && fn(vnode)
   }
 )
 
-options._hook = options.__h /*_hook*/ = _wrap(
-  options._hook || options.__h,
-  (fn, vnode) => {
-    fn && fn(vnode)
-    Current.current = vnode
-  }
-)
+// options._hook = options.__h /*_hook*/ = _wrap(
+//   options._hook || options.__h,
+//   (fn, vnode) => {
+//     fn && fn(vnode)
+//     Current.current = vnode.__c
+//   }
+// )
 
 options.diffed = _wrap(options.diffed, (fn, vnode) => {
+  if (vnode.__c) {
+    vnode.__c.dom = vnode.__e
+  }
   fn && fn(vnode)
-  Current.current = null
 })
 
 options.vnode = _wrap(options.vnode, (fn, vnode) => {
@@ -102,12 +105,6 @@ options.vnode = _wrap(options.vnode, (fn, vnode) => {
   Object.defineProperty(vnode, 'name', {
     get() {
       return vnode.type.name
-    }
-  })
-  
-  Object.defineProperty(vnode, 'dom', {
-    get() {
-      return vnode.__e
     }
   })
   

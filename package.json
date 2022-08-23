@@ -1,6 +1,6 @@
 {
   "name": "taro-preact-webpack-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "replace nervjs with preact",
   "repository": {
     "type": "git",
